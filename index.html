@@ -126,7 +126,11 @@
   .task-row::-webkit-details-marker { display: none; }
   .task-title { flex: 1; font-size: 15px; font-weight: 500; }
   .task-title .ref { color: var(--placeholder); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; margin-right: 7px; }
+  .metacell { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
   .pts { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--placeholder); white-space: nowrap; }
+  .tag { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
+  .tag-maint { color: var(--muted-fg); background: var(--muted-bg); border: 1px solid var(--border); }
+  .tag-gift { color: hsl(9 41% 38%); background: hsl(9 30% 93%); border: 1px solid hsl(9 30% 84%); }
   .pts-total {
     font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--muted-fg);
     background: var(--muted-bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; white-space: nowrap;
@@ -195,7 +199,7 @@ const PHASES = [
     why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, an auto-generated estate distribution chart, vault auto-labelling, and automated ingestion of the Heritage approach books. Most of this is live and now in active testing with the Heritage team.",
     callout: "<b>Heads-up on May.</b> The month is essentially shipped, but two items are still in review: the Estate Distribution Chart (#2) and the Heritage Books PDF pipeline (#49). Both are live and in active testing, not signed off until they're validated against real client books.",
     tasks: [
-      { ref: "", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", pts: 1, d: "Rebuilt flow-diagram creation: a template that color-codes text straight from the eval data using Heritage's rules, plus record duplication. Reviewed with Keith, Tom Jr., Willy and Chris on Jun 4 on an 80/20 basis: ship a functional baseline, then iterate on the open items (arrow connections, date formatting, insurance-box labelling)." },
+      { ref: "#1", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", pts: 1, d: "Rebuilt flow-diagram creation: a template that color-codes text straight from the eval data using Heritage's rules, plus record duplication. Reviewed with Keith, Tom Jr., Willy and Chris on Jun 4 on an 80/20 basis: ship a functional baseline, then iterate on the open items (arrow connections, date formatting, insurance-box labelling)." },
       { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", pts: 1, d: "Auto-generates the estate distribution chart from the asset, insurance and data sheets, replacing Heritage's manual Excel process. Live and in testing: a qualified-plans tax bug was fixed Jun 3, and Keith is verifying allocations (including dollar-amount GST splits) against real client books before sign-off." },
       { ref: "#12", title: "Vault File Auto-Labelling: Part 1 (correct labelling on upload)", st: "done", pts: 2, d: "Upload interface that routes client files into the Supernal Vault, where AI classifies each document by domain and auto-renames it on a consistent pattern (carrier, product, policy number, type, date). Part 1 shipped; Part 2 continues in June." },
       { ref: "#49", title: "Automated Heritage Books PDF ingestion pipeline", st: "review", pts: 2, d: "Drag Heritage approach books (PDFs) into the platform and the AI extraction pipeline auto-populates the data in about 30 minutes, replacing manual re-entry. Live at roughly 80% accuracy with final fixes delivered Jun 1; still admin-only and needs manual review before we call it signed off." }
@@ -206,13 +210,13 @@ const PHASES = [
     theme: "Harden the internal platform",
     why: "Turn the working MVP into a dependable platform: a real Python/FastAPI backend with role-based access and OAuth, a dedicated staging environment, the production domain, and an accuracy dashboard that proves output quality. This is the heaviest month of the ramp.",
     tasks: [
-      { ref: "", title: "Backend foundation: RBAC, endpoints & OAuth", st: "progress", pts: 4, d: "A full Python/FastAPI backend replacing today's direct database access, where any user can currently bypass role checks from the browser. Adds role-based access control across 150+ endpoints plus Google/Microsoft OAuth. Deep owns it; the single largest effort this month." },
-      { ref: "", title: "Heritage staging environment & delivery workflow", st: "progress", pts: 2, d: "A dedicated Heritage staging environment on Railway, separate from production and clearly banner-marked, so changes are tested safely before release. Being stood up this week as the team moves to a staging-branch workflow." },
-      { ref: "", title: "Domain migration → app.heritagesllc.com", st: "progress", pts: 1, d: "Move the app from heritage.getsupernal.ai to app.heritagesllc.com with Heritage's IT partner, Soho. Production is operational; currently waiting on the DNS records from Soho before cutover." },
-      { ref: "#50", title: "Accuracy KPI Dashboard: two-stage scoring", st: "progress", pts: 2, d: "A dashboard that scores the AI pipeline's accuracy so output quality is visible and trackable. Stage 1 (answer accuracy) is built and ready for staging; Stage 2 (mapping accuracy) follows once version control lands." },
+      { ref: "", title: "Backend foundation: RBAC, endpoints & OAuth", st: "progress", pts: 4, kind: "gift", d: "A full Python/FastAPI backend replacing today's direct database access, where any user can currently bypass role checks from the browser. Adds role-based access control across 150+ endpoints plus Google/Microsoft OAuth. Deep owns it; the single largest effort this month." },
+      { ref: "", title: "Heritage staging environment & delivery workflow", st: "progress", pts: 2, kind: "maintenance", d: "A dedicated Heritage staging environment on Railway, separate from production and clearly banner-marked, so changes are tested safely before release. Being stood up this week as the team moves to a staging-branch workflow." },
+      { ref: "", title: "Domain migration → app.heritagesllc.com", st: "progress", pts: 1, kind: "maintenance", d: "Move the app from heritage.getsupernal.ai to app.heritagesllc.com with Heritage's IT partner, Soho. Production is operational; currently waiting on the DNS records from Soho before cutover." },
+      { ref: "#50", title: "Accuracy KPI Dashboard: two-stage scoring", st: "progress", pts: 2, kind: "gift", d: "A dashboard that scores the AI pipeline's accuracy so output quality is visible and trackable. Stage 1 (answer accuracy) is built and ready for staging; Stage 2 (mapping accuracy) follows once version control lands." },
       { ref: "#12", title: "Vault File Auto-Labelling: Part 2", st: "progress", pts: 4, d: "Completes auto-labelling by wiring the upload flow into the Supernal AI endpoints, so files are classified and renamed end to end. Targeted for Jun 15." },
       { ref: "#43", title: "AI Intelligence: natural-language search (kickoff)", st: "progress", pts: 2, d: "'Talk to the book': plain-English search across every client and Heritage Book domain, returning matching customers with snippets and direct links. Jens owns it, targeted for Jun 15." },
-      { ref: "", title: "'Validate All' eval action", st: "done", pts: 1, d: "A single action to validate every eval answer at once instead of one by one, speeding up how fast a flow diagram gets populated. Shipped." }
+      { ref: "", title: "'Validate All' eval action", st: "done", pts: 1, kind: "maintenance", d: "A single action to validate every eval answer at once instead of one by one, speeding up how fast a flow diagram gets populated. Shipped." }
     ]
   },
   {
@@ -263,8 +267,15 @@ tabs.innerHTML = PHASES.map((p, i) => `
 
 /* ---------- Render panels ---------- */
 const panels = document.getElementById("panels");
+function metaCell(t) {
+  const pts = `<span class="pts">${t.pts} pt${t.pts===1?'':'s'}</span>`;
+  if (t.kind === "maintenance") return `<span class="tag tag-maint">maintenance</span>`;
+  if (t.kind === "gift")        return `${pts}<span class="tag tag-gift">gift</span>`;
+  return pts;
+}
+
 panels.innerHTML = PHASES.map((p, i) => {
-  const total = p.tasks.reduce((a, t) => a + (t.pts || 0), 0);
+  const total = p.tasks.reduce((a, t) => a + (t.kind === "maintenance" ? 0 : (t.pts || 0)), 0);
   return `
   <div class="panel ${i===1?'active':''}" data-key="${p.key}">
     <div class="panel-head">
@@ -278,7 +289,7 @@ panels.innerHTML = PHASES.map((p, i) => {
         <details class="task">
           <summary class="task-row">
             <span class="task-title">${t.ref ? `<span class="ref">${t.ref}</span>` : ""}${esc(t.title)}</span>
-            <span class="pts">${t.pts} pt${t.pts===1?'':'s'}</span>
+            <span class="metacell">${metaCell(t)}</span>
             ${chip(t.st)}
             <span class="caret">▶</span>
           </summary>
