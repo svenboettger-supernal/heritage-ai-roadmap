@@ -126,6 +126,11 @@
   .task-row::-webkit-details-marker { display: none; }
   .task-title { flex: 1; font-size: 15px; font-weight: 500; }
   .task-title .ref { color: var(--placeholder); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; margin-right: 7px; }
+  .pts { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--placeholder); white-space: nowrap; }
+  .pts-total {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--muted-fg);
+    background: var(--muted-bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; white-space: nowrap;
+  }
   .caret { color: var(--placeholder); transition: transform .15s; font-size: 13px; }
   details[open] .caret { transform: rotate(90deg); }
   .task-body {
@@ -187,58 +192,49 @@ const PHASES = [
   {
     key: "may", month: "May 2026", status: "In review", statusChip: "review",
     theme: "Fast, accurate daily workflow",
-    why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, cleaner vault labelling, and a real staging pipeline so we can ship safely.",
-    callout: "<b>Heads-up on May.</b> Nearly complete, but three items are still in review: the Estate Distribution Chart (#2), the Heritage Books PDF pipeline (#49), and the insurance-illustration accuracy fix.",
+    why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, an auto-generated estate distribution chart, vault auto-labelling, and automated ingestion of the Heritage approach books. Most of this is live and now in active testing with the Heritage team.",
+    callout: "<b>Heads-up on May.</b> The month is essentially shipped, but two items are still in review: the Estate Distribution Chart (#2) and the Heritage Books PDF pipeline (#49). Both are live and in active testing, not signed off until they're validated against real client books.",
     tasks: [
-      { ref: "", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", d: "Completely new flow-diagram creation: a template that color-codes text from the eval data using Heritage's rules, plus record duplication. Origin: Jessica's priority list + Chris's eval-to-book alignment feedback." },
-      { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", d: "Auto-creates the Estate Distribution Chart from the book data, replacing Heritage's manual Excel process. Origin: Jess Email #03. Currently in review, pending sign-off." },
-      { ref: "#12", title: "Vault File Auto-Labelling: Part 1 (correct labelling on upload)", st: "done", d: "Upload interface that routes client files to the Supernal Vault, where AI classifies each document against a Heritage taxonomy and renames it automatically. Part 1 shipped; Part 2 continues in June." },
-      { ref: "", title: "Asset / data sheet coloring fixes", st: "done", d: "Partial-line coloring now works across all asset and data sheets, not just Notes and Schedule B. Found during the Heritage team's daily use." },
-      { ref: "", title: "Delivery workflow: staging automation & branching", st: "done", d: "Finished and pushed the staging automation: local branches, staging on Supabase, and a clean merge flow to main/prod. Foundation for safe, faster delivery." },
-      { ref: "#49", title: "Automated Heritage Books PDF ingestion pipeline", st: "review", d: "Instead of manually re-entering ~50 approach books, ingest the PDF versions through the AI extraction pipeline (OCR + eval) and populate the vault automatically. Currently in review: not yet validated against live books." },
-      { ref: "", title: "Auto-coloring front-end via API", st: "planned", d: "Front-end support so coloring runs automatically through the API. Carrying into June alongside the flow-diagram work." }
+      { ref: "", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", pts: 1, d: "Rebuilt flow-diagram creation: a template that color-codes text straight from the eval data using Heritage's rules, plus record duplication. Reviewed with Keith, Tom Jr., Willy and Chris on Jun 4 on an 80/20 basis: ship a functional baseline, then iterate on the open items (arrow connections, date formatting, insurance-box labelling)." },
+      { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", pts: 1, d: "Auto-generates the estate distribution chart from the asset, insurance and data sheets, replacing Heritage's manual Excel process. Live and in testing: a qualified-plans tax bug was fixed Jun 3, and Keith is verifying allocations (including dollar-amount GST splits) against real client books before sign-off." },
+      { ref: "#12", title: "Vault File Auto-Labelling: Part 1 (correct labelling on upload)", st: "done", pts: 2, d: "Upload interface that routes client files into the Supernal Vault, where AI classifies each document by domain and auto-renames it on a consistent pattern (carrier, product, policy number, type, date). Part 1 shipped; Part 2 continues in June." },
+      { ref: "#49", title: "Automated Heritage Books PDF ingestion pipeline", st: "review", pts: 2, d: "Drag Heritage approach books (PDFs) into the platform and the AI extraction pipeline auto-populates the data in about 30 minutes, replacing manual re-entry. Live at roughly 80% accuracy with final fixes delivered Jun 1; still admin-only and needs manual review before we call it signed off." }
     ]
   },
   {
     key: "jun", month: "June 2026", status: "In progress", statusChip: "progress",
     theme: "Harden the internal platform",
-    why: "Turn the working MVP into a dependable platform: real backend foundations (RBAC, endpoints, OAuth), a dedicated staging environment, the production domain, and an accuracy KPI dashboard that proves output quality.",
+    why: "Turn the working MVP into a dependable platform: a real Python/FastAPI backend with role-based access and OAuth, a dedicated staging environment, the production domain, and an accuracy dashboard that proves output quality. This is the heaviest month of the ramp.",
     tasks: [
-      { ref: "", title: "Backend foundation: RBAC, endpoints & OAuth", st: "progress", d: "Build out the backend system: role-based access control, the endpoints the app and dashboard need, migration of edge functions to endpoints, and OAuth integration. The structural backbone for everything downstream." },
-      { ref: "", title: "Heritage staging environment & delivery workflow", st: "progress", d: "A clean Heritage staging Supabase project (not a prod clone), seeded with non-confidential test data only, on its own clearly-labelled Railway URL with an always-visible staging banner. Faster, safer delivery." },
-      { ref: "", title: "Domain migration → app.heritagesllc.com", st: "progress", d: "Coordinate with Heritage IT (Soho Solutions) to migrate from heritage.getsupernal.ai to app.heritagesllc.com: confirm subdomain, add the custom domain on Railway, hand DNS records to Soho, verify SSL, announce the new URL with a 30-day redirect." },
-      { ref: "#50", title: "Accuracy KPI Dashboard: two-stage scoring", st: "progress", d: "Two-stage measurement of the extraction → mapping pipeline: Stage 1 answer accuracy (LLM-judged closeness per eval question), Stage 2 mapping accuracy, with drill-downs. Makes output quality visible and trackable." },
-      { ref: "#12", title: "Vault File Auto-Labelling: Part 2", st: "progress", d: "Continues the auto-labelling work; gated on Supernal endpoints. Completes the path from upload to correctly classified, renamed vault document." },
-      { ref: "#43", title: "AI Intelligence: natural-language search (kickoff)", st: "progress", d: "'Talk to the book': plain-English search across all customers and Heritage Book domains, returning matching customers with snippets and direct links. Build kicks off in June." },
-      { ref: "", title: "'Validate All' eval action", st: "done", d: "A single button to validate all eval answers at once, so users don't validate each question manually: speeds up populating the flow diagram. Shipped." },
-      { ref: "", title: "Audit logs, flow-diagram feedback & UX consistency", st: "progress", d: "User-level audit logging for compliance traceability, implementing flow-diagram feedback, and improving UX consistency across the sheets (especially edit mode), plus info-icon explanations for Heritage terminology." },
-      { ref: "", title: "Cross-sell additional AI Employees to Heritage", st: "progress", d: "Identify and position further Supernal AI Employees / products that fit Heritage's workflow." }
+      { ref: "", title: "Backend foundation: RBAC, endpoints & OAuth", st: "progress", pts: 4, d: "A full Python/FastAPI backend replacing today's direct database access, where any user can currently bypass role checks from the browser. Adds role-based access control across 150+ endpoints plus Google/Microsoft OAuth. Deep owns it; the single largest effort this month." },
+      { ref: "", title: "Heritage staging environment & delivery workflow", st: "progress", pts: 2, d: "A dedicated Heritage staging environment on Railway, separate from production and clearly banner-marked, so changes are tested safely before release. Being stood up this week as the team moves to a staging-branch workflow." },
+      { ref: "", title: "Domain migration → app.heritagesllc.com", st: "progress", pts: 1, d: "Move the app from heritage.getsupernal.ai to app.heritagesllc.com with Heritage's IT partner, Soho. Production is operational; currently waiting on the DNS records from Soho before cutover." },
+      { ref: "#50", title: "Accuracy KPI Dashboard: two-stage scoring", st: "progress", pts: 2, d: "A dashboard that scores the AI pipeline's accuracy so output quality is visible and trackable. Stage 1 (answer accuracy) is built and ready for staging; Stage 2 (mapping accuracy) follows once version control lands." },
+      { ref: "#12", title: "Vault File Auto-Labelling: Part 2", st: "progress", pts: 4, d: "Completes auto-labelling by wiring the upload flow into the Supernal AI endpoints, so files are classified and renamed end to end. Targeted for Jun 15." },
+      { ref: "#43", title: "AI Intelligence: natural-language search (kickoff)", st: "progress", pts: 2, d: "'Talk to the book': plain-English search across every client and Heritage Book domain, returning matching customers with snippets and direct links. Jens owns it, targeted for Jun 15." },
+      { ref: "", title: "'Validate All' eval action", st: "done", pts: 1, d: "A single action to validate every eval answer at once instead of one by one, speeding up how fast a flow diagram gets populated. Shipped." }
     ]
   },
   {
     key: "jul", month: "July 2026", status: "Upcoming", statusChip: "planned",
     theme: "Make the AI pipeline production-grade",
-    why: "Take the pipeline from working to production-grade: reliable large-document handling, proper document and version control, OAuth-only security, and an automated regression safety net.",
+    why: "Take the platform from working to production-grade: reliable handling of large documents, proper document management and version control, and the user-level visibility Heritage needs for sensitive sections of a book.",
     tasks: [
-      { ref: "#5", title: "Large Document Handling: retrieval & readability", st: "planned", d: "AI retrieval and readability improvements for large documents, with engineering support scoped in Notion. Forecasting engineering capacity and timeline, and queuing Heritage-side QA (William) for the build." },
-      { ref: "#23", title: "Document Management: inventory, labelling & storage", st: "planned", d: "Central document management across all client files: inventory list, labelling, and identifying what's missing. Origin: Jess Email #19, referenced in the 10/29/25 PRD." },
-      { ref: "#36", title: "Version Control: history, draft/published & domain control", st: "planned", d: "Save previous versions on modification, draft vs published states, and domain-level version control. Gives Heritage a full audit trail of book changes. Requires significant platform architecture work." },
-      { ref: "#37", title: "Granular user-level visibility controls", st: "planned", d: "Role-based, persistent controls to hide specific sections per user for controlled information sharing: some book sections contain sensitive data." },
-      { ref: "", title: "Security: move to OAuth, disable username/password", st: "blocked", d: "Migrate Heritage authentication fully to OAuth and disable username/password login to harden the security posture. Origin: Heritage security request (Apr 30)." },
-      { ref: "", title: "Automated Cypress testing", st: "planned", d: "An automated end-to-end test suite to catch regressions: directly responding to the PDF-print regression the team flagged and the call for better CI/CD." }
+      { ref: "#5", title: "Large Document Handling: retrieval & readability", st: "planned", pts: 4, d: "AI retrieval and readability improvements so large documents process reliably end to end. A major engineering item; timing is still being confirmed with Heritage between June and July." },
+      { ref: "#23", title: "Document Management: inventory, labelling & storage", st: "planned", pts: 2, d: "Central document management across all client files: an inventory with folders and tagging, and a clear view of what's missing. Part of the dedicated Heritage-app phase." },
+      { ref: "#36", title: "Version Control: history, draft/published & domain control", st: "planned", pts: 4, d: "Version history with draft and published states and domain-level control, giving Heritage a full audit trail of book changes. Also the prerequisite for Stage 2 of the accuracy dashboard." },
+      { ref: "#37", title: "Granular user-level visibility controls", st: "planned", pts: 2, d: "Role-based, persistent controls to hide specific sections per user, so the sensitive parts of a book are only seen by the right people." }
     ]
   },
   {
     key: "aug", month: "August 2026", status: "Upcoming", statusChip: "planned",
     theme: "Multi-tenant, firm-facing foundation",
-    why: "Lay the groundwork to open Heritage AI to other firms: the API layer, evaluation engine, and UX research that let outside firms use the platform, plus a US-region infra move ahead of a multi-tenant launch.",
+    why: "Lay the groundwork to open Heritage AI to other firms: an API layer, an evaluation engine, and the UX research that let outside firms use the platform without ever needing a Supernal account. The detailed sequencing here gets locked in at the acceleration-roadmap session on Jun 16.",
     tasks: [
-      { ref: "#20", title: "API Layer: endpoints, auth, rate limiting & docs", st: "planned", d: "The foundation enabling multi-tenant access so firms never need Supernal accounts: document upload/processing endpoints, evaluation results API, auth, rate limiting, error handling, and developer documentation." },
-      { ref: "#22", title: "UX Research & Design: personas, wireframes & usability", st: "planned", d: "Validate UX assumptions before building firm-facing features (an LOI requirement): interviews with 5–10 target firms, persona and journey mapping, wireframes, and usability testing." },
-      { ref: "#25", title: "Evaluation Engine: question-set builder & templates", st: "planned", d: "Customizable evaluation question sets and templates per firm, all running through the Supernal API. Depends on the API layer and multi-tenant foundation." },
-      { ref: "#26", title: "Evaluation Engine: runner, results queue & QA dashboard", st: "planned", d: "Background evaluation runner with a results queue, plus a QA review workflow and status dashboard so firms can run evals independently with quality control before results go live." },
-      { ref: "", title: "Infrastructure migration: EU West → US region", st: "planned", d: "Move Railway/Supabase infrastructure from EU West to a US region to cut latency for customers in the Americas, ahead of the multi-tenant launch. Billing is not a constraint." },
-      { ref: "", title: "Open eval endpoints for Heritage → Supernal", st: "planned", d: "Expose evaluation endpoints so the Heritage app can call the Supernal app directly, including API access to uploaded documents for running evals." }
+      { ref: "#20", title: "API Layer: endpoints, auth, rate limiting & docs", st: "planned", pts: 4, d: "The foundation for multi-tenant access, so firms never need a Supernal account: document upload and processing endpoints, an evaluation results API, auth and rate limiting. A major gate that depends on the eval endpoints coming from Supernal." },
+      { ref: "#22", title: "UX Research & Design: personas, wireframes & usability", st: "planned", pts: 4, d: "Validate the firm-facing experience before building it (an LOI requirement): interviews with target firms, personas and journey mapping, wireframes, and usability testing." },
+      { ref: "#25", title: "Evaluation Engine: question-set builder & templates", st: "planned", pts: 2, d: "Customizable evaluation question sets and templates per firm, all running through the Supernal API. Builds on the API layer." },
+      { ref: "#26", title: "Evaluation Engine: runner, results queue & QA dashboard", st: "planned", pts: 4, d: "A background evaluation runner with a results queue, plus a QA review workflow and status dashboard, so firms can run evals independently with quality control before results go live." }
     ]
   }
 ];
@@ -267,11 +263,14 @@ tabs.innerHTML = PHASES.map((p, i) => `
 
 /* ---------- Render panels ---------- */
 const panels = document.getElementById("panels");
-panels.innerHTML = PHASES.map((p, i) => `
+panels.innerHTML = PHASES.map((p, i) => {
+  const total = p.tasks.reduce((a, t) => a + (t.pts || 0), 0);
+  return `
   <div class="panel ${i===1?'active':''}" data-key="${p.key}">
     <div class="panel-head">
       <h2>${p.theme}</h2>
       ${chip(p.statusChip)}
+      <span class="pts-total">${total} points</span>
     </div>
     <p class="panel-why">${p.why}</p>
     <div class="tasks">
@@ -279,6 +278,7 @@ panels.innerHTML = PHASES.map((p, i) => `
         <details class="task">
           <summary class="task-row">
             <span class="task-title">${t.ref ? `<span class="ref">${t.ref}</span>` : ""}${esc(t.title)}</span>
+            <span class="pts">${t.pts} pt${t.pts===1?'':'s'}</span>
             ${chip(t.st)}
             <span class="caret">▶</span>
           </summary>
@@ -288,7 +288,8 @@ panels.innerHTML = PHASES.map((p, i) => `
     </div>
     ${p.callout ? `<div class="callout">${p.callout}</div>` : ""}
   </div>
-`).join("");
+`;
+}).join("");
 
 /* ---------- Interaction: switch month ---------- */
 function activate(key) {
