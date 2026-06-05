@@ -58,8 +58,13 @@
 
   /* ---------- Header ---------- */
   header {
-    border-bottom: 1px solid var(--border);
+    position: relative;
     background: var(--bg);
+  }
+  header::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong) 22%, var(--border-strong) 78%, transparent);
   }
   .brandbar {
     display: flex; align-items: center; gap: 10px;
@@ -84,26 +89,6 @@
     margin-top: 16px; max-width: 640px; color: var(--muted-fg); font-size: 16px;
   }
 
-  /* ---------- Milestone rail ---------- */
-  .rail-section { padding: 34px 0 8px; }
-  .rail {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-  }
-  .phase {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 16px 18px; position: relative; overflow: hidden;
-    cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s;
-  }
-  .phase:hover { border-color: var(--border-strong); transform: translateY(-2px); }
-  .phase.active { border-color: var(--action); box-shadow: 0 0 0 1px var(--action); }
-  .phase .accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .phase .pmonth { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted-fg); }
-  .phase .ptheme { font-size: 15px; font-weight: 600; margin-top: 8px; line-height: 1.3; }
-  .phase .pmile { font-size: 12.5px; color: var(--muted-fg); margin-top: 10px; line-height: 1.4; }
-  .bar { height: 6px; background: var(--muted-bg); border-radius: 99px; margin-top: 14px; overflow: hidden; }
-  .bar > span { display: block; height: 100%; border-radius: 99px; }
-  .phase .pmeta { font-size: 12px; color: var(--placeholder); margin-top: 7px; }
-
   /* ---------- Status chips ---------- */
   .chip {
     display: inline-flex; align-items: center; gap: 6px;
@@ -123,7 +108,8 @@
   .chip.blocked .dot { background: hsl(6 63% 46%); }
 
   /* ---------- Month detail ---------- */
-  .tabs { display: flex; gap: 8px; flex-wrap: wrap; padding: 40px 0 0; }
+  .months { padding-top: 46px; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
   .tab {
     font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
     background: transparent; color: var(--fg); border: 1px solid var(--border);
@@ -141,13 +127,6 @@
   .panel-why {
     color: var(--muted-fg); max-width: 720px; margin: 12px 0 4px; font-size: 16px;
   }
-  .panel-mile {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; color: var(--muted-fg); margin-top: 14px;
-    background: var(--muted-bg); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px;
-  }
-  .panel-mile b { color: var(--fg); font-weight: 600; }
-
   .tasks { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
   .task {
     background: var(--card); border: 1px solid var(--border); border-radius: 10px;
@@ -171,28 +150,16 @@
   /* ---------- Callout ---------- */
   .callout {
     background: var(--warning-bg); border: 1px solid var(--warning-bd); border-radius: 10px;
-    padding: 16px 18px; margin: 24px 0 0; font-size: 14.5px; color: hsl(26 70% 28%);
+    padding: 16px 18px; margin: 26px 0 0; font-size: 14.5px; line-height: 1.55; color: hsl(26 70% 28%);
   }
   .callout b { color: hsl(26 91% 37%); }
 
-  /* ---------- Beyond section ---------- */
-  .beyond { padding: 56px 0 12px; }
-  .beyond .note {
-    background: var(--card); border: 1px dashed var(--border-strong); border-radius: 12px;
-    padding: 22px 24px; margin-top: 18px; color: var(--muted-fg); max-width: 760px;
-  }
-  .beyond .note p + p { margin-top: 12px; }
-  .future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
-  .future {
-    background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
-    opacity: 0.9;
-  }
-  .future .fm { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--placeholder); }
-  .future .ft { font-size: 15px; font-weight: 600; margin-top: 8px; line-height: 1.3; }
-  .future .fd { font-size: 13px; color: var(--muted-fg); margin-top: 8px; }
-
   /* ---------- Footer / legend ---------- */
-  .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 34px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 34px 0; margin-top: 48px; position: relative; }
+  .legend::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong) 22%, var(--border-strong) 78%, transparent);
+  }
   footer { color: var(--placeholder); font-size: 12.5px; padding: 0 0 56px; }
   .section-label {
     font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
@@ -200,12 +167,9 @@
   }
 
   @media (max-width: 820px) {
-    .rail { grid-template-columns: repeat(2, 1fr); }
-    .future-grid { grid-template-columns: 1fr; }
     h1 { font-size: 30px; }
   }
   @media (max-width: 520px) {
-    .rail { grid-template-columns: 1fr; }
     .wrap { padding: 0 18px; }
   }
 </style>
@@ -217,15 +181,15 @@
     <div class="brandbar">
       <span class="mark">H</span>
       <span class="name">Heritage&nbsp;AI</span>
-      <span class="sep">·</span>
-      <span class="ctx">Built by Supernal</span>
     </div>
     <div class="hero">
-      <div class="eyebrow">Product Roadmap · May – August 2026</div>
+      <div class="eyebrow">Heritage Product Roadmap · May – August 2026</div>
       <h1>What we're building, and why.</h1>
       <p class="lede">
-        A working view of the Heritage&nbsp;AI platform over the next four months. May is complete,
-        June is underway, and July and August are sequenced and ready. This is the plan we recommend.
+        Heritage is ramping up to 12 points a month soon. To stay ahead of that pace, we've
+        sequenced the next four months into one clear plan: May is wrapping up with a few items
+        still in review, June is underway, and July and August are scoped and ready. This is the
+        plan we think is best.
       </p>
     </div>
   </div>
@@ -233,22 +197,11 @@
 
 <main class="wrap">
 
-  <!-- Milestone rail -->
-  <section class="rail-section">
-    <div class="section-label">The four-month arc</div>
-    <div class="rail" id="rail"></div>
-  </section>
-
   <!-- Month tabs + detail -->
-  <section>
+  <section class="months">
+    <div class="section-label">The four-month plan</div>
     <div class="tabs" id="tabs"></div>
     <div id="panels"></div>
-    <div class="callout">
-      <b>Heads-up on May.</b> The May cycle is essentially complete, but two items are still in
-      review and not yet signed off: the automated Heritage Books PDF ingestion pipeline
-      (<span class="mono">#49</span>) and the insurance-illustration accuracy fix. They only earn a
-      checkmark once validated against live books.
-    </div>
   </section>
 
   <!-- Legend -->
@@ -271,11 +224,10 @@
 /* ---------- Roadmap data ---------- */
 const PHASES = [
   {
-    key: "may", month: "May 2026", status: "Completed", accent: "var(--c-slate)",
+    key: "may", month: "May 2026", status: "In review", statusChip: "review",
     theme: "Fast, accurate daily workflow",
-    milestone: "Serves: Internal Platform Hardened",
-    progress: 80, progressColor: "var(--success-fg)", meta: "8 of 10 shipped · 1 in review",
     why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, cleaner vault labelling, and a real staging pipeline so we can ship safely.",
+    callout: "<b>Heads-up on May.</b> The May cycle is essentially complete, but a few items are still in review and not yet signed off: the Estate Distribution Chart (#2), the automated Heritage Books PDF ingestion pipeline (#49), and the insurance-illustration accuracy fix. They only earn a checkmark once validated against live books.",
     tasks: [
       { ref: "", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", d: "Completely new flow-diagram creation: a template that color-codes text from the eval data using Heritage's rules, plus record duplication. Origin: Jessica's priority list + Chris's eval-to-book alignment feedback." },
       { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", d: "Auto-creates the Estate Distribution Chart from the book data, replacing Heritage's manual Excel process. Origin: Jess Email #03. Currently in review, pending sign-off." },
@@ -287,10 +239,8 @@ const PHASES = [
     ]
   },
   {
-    key: "jun", month: "June 2026", status: "In progress", accent: "var(--c-terracotta)",
+    key: "jun", month: "June 2026", status: "In progress", statusChip: "progress",
     theme: "Harden the internal platform",
-    milestone: "Milestone: Internal Platform Hardened",
-    progress: 45, progressColor: "var(--info-fg)", meta: "Active cycle · milestone Jun 30",
     why: "Turn the working MVP into a dependable platform: real backend foundations (RBAC, endpoints, OAuth), a dedicated staging environment, the production domain, and an accuracy KPI dashboard that proves output quality.",
     tasks: [
       { ref: "", title: "Backend foundation: RBAC, endpoints & OAuth", st: "progress", d: "Build out the backend system: role-based access control, the endpoints the app and dashboard need, migration of edge functions to endpoints, and OAuth integration. The structural backbone for everything downstream." },
@@ -305,10 +255,8 @@ const PHASES = [
     ]
   },
   {
-    key: "jul", month: "July 2026", status: "Upcoming", accent: "var(--c-amber)",
+    key: "jul", month: "July 2026", status: "Upcoming", statusChip: "planned",
     theme: "Make the AI pipeline production-grade",
-    milestone: "Milestone: AI Pipeline Production-Grade",
-    progress: 0, progressColor: "var(--placeholder)", meta: "Planned · milestone Jul 31",
     why: "Take the pipeline from working to production-grade: reliable large-document handling, proper document and version control, OAuth-only security, and an automated regression safety net.",
     tasks: [
       { ref: "#5", title: "Large Document Handling: retrieval & readability", st: "planned", d: "AI retrieval and readability improvements for large documents, with engineering support scoped in Notion. Forecasting engineering capacity and timeline, and queuing Heritage-side QA (William) for the build." },
@@ -320,10 +268,8 @@ const PHASES = [
     ]
   },
   {
-    key: "aug", month: "August 2026", status: "Upcoming", accent: "var(--c-olive)",
+    key: "aug", month: "August 2026", status: "Upcoming", statusChip: "planned",
     theme: "Multi-tenant, firm-facing foundation",
-    milestone: "Toward: Multi-Tenant Sublicense Foundation",
-    progress: 0, progressColor: "var(--placeholder)", meta: "Planned · foundation work",
     why: "Lay the groundwork to open Heritage AI to other firms: the API layer, evaluation engine, and UX research that let outside firms use the platform, plus a US-region infra move ahead of a multi-tenant launch.",
     tasks: [
       { ref: "#20", title: "API Layer: endpoints, auth, rate limiting & docs", st: "planned", d: "The foundation enabling multi-tenant access so firms never need Supernal accounts: document upload/processing endpoints, evaluation results API, auth, rate limiting, error handling, and developer documentation." },
@@ -350,19 +296,6 @@ function chip(st) {
 }
 function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-/* ---------- Render milestone rail ---------- */
-const rail = document.getElementById("rail");
-rail.innerHTML = PHASES.map((p, i) => `
-  <div class="phase ${i===1?'active':''}" data-key="${p.key}">
-    <span class="accent" style="background:${p.accent}"></span>
-    <div class="pmonth">${p.month}</div>
-    <div class="ptheme">${p.theme}</div>
-    <div class="pmile">${p.milestone}</div>
-    <div class="bar"><span style="width:${p.progress}%;background:${p.progressColor}"></span></div>
-    <div class="pmeta">${p.meta}</div>
-  </div>
-`).join("");
-
 /* ---------- Render tabs ---------- */
 const tabs = document.getElementById("tabs");
 tabs.innerHTML = PHASES.map((p, i) => `
@@ -377,7 +310,7 @@ panels.innerHTML = PHASES.map((p, i) => `
   <div class="panel ${i===1?'active':''}" data-key="${p.key}">
     <div class="panel-head">
       <h2>${p.theme}</h2>
-      ${chip(p.status === "Completed" ? "done" : p.status === "In progress" ? "progress" : "planned")}
+      ${chip(p.statusChip)}
     </div>
     <p class="panel-why">${p.why}</p>
     <div class="tasks">
@@ -392,16 +325,16 @@ panels.innerHTML = PHASES.map((p, i) => `
         </details>
       `).join("")}
     </div>
+    ${p.callout ? `<div class="callout">${p.callout}</div>` : ""}
   </div>
 `).join("");
 
 /* ---------- Interaction: switch month ---------- */
 function activate(key) {
-  document.querySelectorAll(".phase").forEach(el => el.classList.toggle("active", el.dataset.key === key));
   document.querySelectorAll(".tab").forEach(el => el.classList.toggle("active", el.dataset.key === key));
   document.querySelectorAll(".panel").forEach(el => el.classList.toggle("active", el.dataset.key === key));
 }
-document.querySelectorAll(".phase, .tab").forEach(el => {
+document.querySelectorAll(".tab").forEach(el => {
   el.addEventListener("click", () => activate(el.dataset.key));
 });
 </script>
