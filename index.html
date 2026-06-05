@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Heritage AI — Product Roadmap</title>
+<meta name="description" content="Heritage AI product roadmap, May–August 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: hsl(33 20% 97%);
+    --card: hsl(30 8% 99%);
+    --sidebar: hsl(33 22% 87%);
+    --border: hsl(33 18% 80%);
+    --border-strong: hsl(33 14% 67%);
+    --muted-bg: hsl(33 22% 89%);
+    --placeholder: hsl(33 12% 50%);
+    --muted-fg: hsl(33 10% 34%);
+    --fg: hsl(33 4% 6%);
+    --action: hsl(167 16% 48%);
+    --action-hover: hsl(167 14% 34%);
+    --action-subtle: hsl(167 14% 90%);
+
+    --success-bg: hsl(139 76% 97%);  --success-fg: hsl(142 72% 29%);  --success-bd: hsl(141 79% 85%);
+    --warning-bg: hsl(48 100% 96%);  --warning-fg: hsl(26 91% 37%);   --warning-bd: hsl(48 97% 77%);
+    --info-bg: hsl(214 99% 97%);     --info-fg: hsl(204 64% 44%);     --info-bd: hsl(213 97% 87%);
+    --neutral-bg: hsl(33 22% 89%);   --neutral-fg: hsl(33 10% 34%);   --neutral-bd: hsl(33 18% 80%);
+
+    --c-terracotta: hsl(9 41% 55%);
+    --c-amber: hsl(32 73% 69%);
+    --c-slate: hsl(196 13% 50%);
+    --c-olive: hsl(64 13% 45%);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  h1, h2 { font-family: 'Lora', serif; font-weight: 600; }
+  h1 { font-size: 36px; line-height: 1.15; letter-spacing: -0.02em; margin: 0; }
+  h2 { font-size: 30px; line-height: 1.25; margin: 0 0 6px; }
+  h3 { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 600; line-height: 1.3; margin: 0; }
+  p { margin: 0; }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ---------- Header ---------- */
+  header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .brandbar {
+    display: flex; align-items: center; gap: 10px;
+    padding-top: 26px;
+  }
+  .mark {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: var(--fg);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--bg); font-family: 'Lora', serif; font-weight: 600; font-size: 15px;
+  }
+  .brandbar .name { font-weight: 600; font-size: 14px; letter-spacing: 0.01em; }
+  .brandbar .sep { color: var(--placeholder); }
+  .brandbar .ctx { color: var(--muted-fg); font-size: 14px; }
+
+  .hero { padding: 30px 0 38px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted-fg); margin-bottom: 14px;
+  }
+  .hero p.lede {
+    margin-top: 16px; max-width: 640px; color: var(--muted-fg); font-size: 16px;
+  }
+
+  /* ---------- Milestone rail ---------- */
+  .rail-section { padding: 34px 0 8px; }
+  .rail {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  }
+  .phase {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 16px 18px; position: relative; overflow: hidden;
+    cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s;
+  }
+  .phase:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .phase.active { border-color: var(--action); box-shadow: 0 0 0 1px var(--action); }
+  .phase .accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .phase .pmonth { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted-fg); }
+  .phase .ptheme { font-size: 15px; font-weight: 600; margin-top: 8px; line-height: 1.3; }
+  .phase .pmile { font-size: 12.5px; color: var(--muted-fg); margin-top: 10px; line-height: 1.4; }
+  .bar { height: 6px; background: var(--muted-bg); border-radius: 99px; margin-top: 14px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; border-radius: 99px; }
+  .phase .pmeta { font-size: 12px; color: var(--placeholder); margin-top: 7px; }
+
+  /* ---------- Status chips ---------- */
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: 99px; padding: 2px 9px; font-size: 12px; font-weight: 500;
+    border: 1px solid transparent; white-space: nowrap;
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 99px; }
+  .chip.done    { background: var(--success-bg); color: var(--success-fg); border-color: var(--success-bd); }
+  .chip.done .dot { background: var(--success-fg); }
+  .chip.progress{ background: var(--info-bg); color: var(--info-fg); border-color: var(--info-bd); }
+  .chip.progress .dot { background: var(--info-fg); }
+  .chip.review  { background: var(--warning-bg); color: var(--warning-fg); border-color: var(--warning-bd); }
+  .chip.review .dot { background: var(--warning-fg); }
+  .chip.planned { background: var(--neutral-bg); color: var(--neutral-fg); border-color: var(--neutral-bd); }
+  .chip.planned .dot { background: var(--placeholder); }
+  .chip.blocked { background: hsl(0 86% 97%); color: hsl(6 63% 46%); border-color: hsl(0 96% 89%); }
+  .chip.blocked .dot { background: hsl(6 63% 46%); }
+
+  /* ---------- Month detail ---------- */
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; padding: 40px 0 0; }
+  .tab {
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+    background: transparent; color: var(--fg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 7px 16px; cursor: pointer;
+    transition: background .12s, border-color .12s;
+  }
+  .tab:hover { background: var(--action-subtle); border-color: var(--border-strong); }
+  .tab.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+  .panel { display: none; padding: 26px 0 8px; animation: fade .25s ease; }
+  .panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .panel-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  .panel-why {
+    color: var(--muted-fg); max-width: 720px; margin: 12px 0 4px; font-size: 16px;
+  }
+  .panel-mile {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--muted-fg); margin-top: 14px;
+    background: var(--muted-bg); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px;
+  }
+  .panel-mile b { color: var(--fg); font-weight: 600; }
+
+  .tasks { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .task {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    overflow: hidden; transition: border-color .12s;
+  }
+  .task:hover { border-color: var(--border-strong); }
+  .task-row {
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer;
+    list-style: none;
+  }
+  .task-row::-webkit-details-marker { display: none; }
+  .task-title { flex: 1; font-size: 15px; font-weight: 500; }
+  .task-title .ref { color: var(--placeholder); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; margin-right: 7px; }
+  .caret { color: var(--placeholder); transition: transform .15s; font-size: 13px; }
+  details[open] .caret { transform: rotate(90deg); }
+  .task-body {
+    padding: 0 16px 16px 16px; color: var(--muted-fg); font-size: 14px; line-height: 1.55;
+    border-top: 1px solid var(--border); margin-top: 2px; padding-top: 14px;
+  }
+
+  /* ---------- Callout ---------- */
+  .callout {
+    background: var(--warning-bg); border: 1px solid var(--warning-bd); border-radius: 10px;
+    padding: 16px 18px; margin: 24px 0 0; font-size: 14.5px; color: hsl(26 70% 28%);
+  }
+  .callout b { color: hsl(26 91% 37%); }
+
+  /* ---------- Beyond section ---------- */
+  .beyond { padding: 56px 0 12px; }
+  .beyond .note {
+    background: var(--card); border: 1px dashed var(--border-strong); border-radius: 12px;
+    padding: 22px 24px; margin-top: 18px; color: var(--muted-fg); max-width: 760px;
+  }
+  .beyond .note p + p { margin-top: 12px; }
+  .future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+  .future {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    opacity: 0.9;
+  }
+  .future .fm { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--placeholder); }
+  .future .ft { font-size: 15px; font-weight: 600; margin-top: 8px; line-height: 1.3; }
+  .future .fd { font-size: 13px; color: var(--muted-fg); margin-top: 8px; }
+
+  /* ---------- Footer / legend ---------- */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 34px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  footer { color: var(--placeholder); font-size: 12.5px; padding: 0 0 56px; }
+  .section-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted-fg); margin-bottom: 16px;
+  }
+
+  @media (max-width: 820px) {
+    .rail { grid-template-columns: repeat(2, 1fr); }
+    .future-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+  }
+  @media (max-width: 520px) {
+    .rail { grid-template-columns: 1fr; }
+    .wrap { padding: 0 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brandbar">
+      <span class="mark">H</span>
+      <span class="name">Heritage&nbsp;AI</span>
+      <span class="sep">·</span>
+      <span class="ctx">Built by Supernal</span>
+    </div>
+    <div class="hero">
+      <div class="eyebrow">Product Roadmap · May – August 2026</div>
+      <h1>What we're building, and why.</h1>
+      <p class="lede">
+        A working view of the Heritage&nbsp;AI platform over the next four months. May is complete,
+        June is underway, and July–August are sequenced and ready. This is the plan we recommend —
+        the work beyond August exists, but is not yet ordered.
+      </p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Milestone rail -->
+  <section class="rail-section">
+    <div class="section-label">The four-month arc</div>
+    <div class="rail" id="rail"></div>
+  </section>
+
+  <!-- Month tabs + detail -->
+  <section>
+    <div class="tabs" id="tabs"></div>
+    <div id="panels"></div>
+    <div class="callout">
+      <b>Heads-up on May.</b> The May cycle is essentially complete, but two items are still in
+      review and not yet signed off: the automated Heritage Books PDF ingestion pipeline
+      (<span class="mono">#49</span>) and the insurance-illustration accuracy fix. They only earn a
+      checkmark once validated against live books.
+    </div>
+  </section>
+
+  <!-- Beyond August -->
+  <section class="beyond">
+    <div class="section-label">Beyond August — directional, not yet sequenced</div>
+    <h2>The backlog is real, but unordered.</h2>
+    <div class="note">
+      <p>
+        Everything above is committed and sequenced. Beyond August we hold a backlog of larger
+        initiatives — book domains and presentation output, multi-tenant sub-licensing, and
+        firm-facing evaluation. These are <b>not yet sequenced or scheduled.</b>
+      </p>
+      <p>
+        We surface them here so the direction is visible, but the order, scope, and timing will be
+        set together with Heritage as the August foundation work lands. Treat the cards below as a
+        horizon, not a commitment.
+      </p>
+    </div>
+    <div class="future-grid" id="future"></div>
+  </section>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="chip done"><span class="dot"></span>Done</span>
+    <span class="chip progress"><span class="dot"></span>In&nbsp;progress</span>
+    <span class="chip review"><span class="dot"></span>In&nbsp;review</span>
+    <span class="chip planned"><span class="dot"></span>Planned</span>
+    <span class="chip blocked"><span class="dot"></span>Blocked</span>
+  </div>
+
+  <footer>
+    Heritage AI — prepared by Supernal. Status reflects the live project plan as of June 2026.
+    Figures and sequencing are working estimates and may shift as work lands.
+  </footer>
+
+</main>
+
+<script>
+/* ---------- Roadmap data ---------- */
+const PHASES = [
+  {
+    key: "may", month: "May 2026", status: "Completed", accent: "var(--c-slate)",
+    theme: "Fast, accurate daily workflow",
+    milestone: "Serves: Internal Platform Hardened",
+    progress: 80, progressColor: "var(--success-fg)", meta: "8 of 10 shipped · 1 in review",
+    why: "Get the team's everyday workflow fast and accurate. We rebuilt the flow-diagram creation to be template-driven and eval-colored, cleaned up the vault auto-labelling, and stood up a real staging and delivery pipeline so we can ship safely from here on.",
+    mileLine: "Internal Platform Hardened — target Jun 30, 2026",
+    tasks: [
+      { ref: "", title: "Flow Diagram Automation — template-based, eval-driven color coding", st: "done", d: "Completely new flow-diagram creation: a template that color-codes text from the eval data using Heritage's rules, plus record duplication. Origin: Jessica's priority list + Chris's eval-to-book alignment feedback." },
+      { ref: "#12", title: "Vault File Auto-Labelling — Part 1 (correct labelling on upload)", st: "done", d: "Upload interface that routes client files to the Supernal Vault, where AI classifies each document against a Heritage taxonomy and renames it automatically. Part 1 shipped; Part 2 continues in June." },
+      { ref: "", title: "Asset / data sheet coloring fixes", st: "done", d: "Partial-line coloring now works across all asset and data sheets, not just Notes and Schedule B. Found during the Heritage team's daily use." },
+      { ref: "", title: "Delivery workflow — staging automation & branching", st: "done", d: "Finished and pushed the staging automation: local branches, staging on Supabase, and a clean merge flow to main/prod. Foundation for safe, faster delivery." },
+      { ref: "#49", title: "Automated Heritage Books PDF ingestion pipeline", st: "review", d: "Instead of manually re-entering ~50 approach books, ingest the PDF versions through the AI extraction pipeline (OCR + eval) and populate the vault automatically. Currently in review — not yet validated against live books." },
+      { ref: "", title: "Auto-coloring front-end via API", st: "planned", d: "Front-end support so coloring runs automatically through the API. Carrying into June alongside the flow-diagram work." }
+    ]
+  },
+  {
+    key: "jun", month: "June 2026", status: "In progress", accent: "var(--c-terracotta)",
+    theme: "Harden the internal platform",
+    milestone: "Milestone: Internal Platform Hardened",
+    progress: 45, progressColor: "var(--info-fg)", meta: "Active cycle · milestone Jun 30",
+    why: "Turn the working MVP into a hardened platform. Real backend foundations (RBAC, endpoints, OAuth), a dedicated staging environment, the production domain at app.heritagesllc.com, and an accuracy KPI dashboard that proves the AI's output quality — the things that make Heritage AI dependable day to day.",
+    mileLine: "Internal Platform Hardened — target Jun 30, 2026",
+    tasks: [
+      { ref: "", title: "Backend foundation — RBAC, endpoints & OAuth", st: "progress", d: "Build out the backend system: role-based access control, the endpoints the app and dashboard need, migration of edge functions to endpoints, and OAuth integration. The structural backbone for everything downstream." },
+      { ref: "", title: "Heritage staging environment & delivery workflow", st: "progress", d: "A clean Heritage staging Supabase project (not a prod clone), seeded with non-confidential test data only, on its own clearly-labelled Railway URL with an always-visible staging banner. Faster, safer delivery." },
+      { ref: "", title: "Domain migration → app.heritagesllc.com", st: "progress", d: "Coordinate with Heritage IT (Soho Solutions) to migrate from heritage.getsupernal.ai to app.heritagesllc.com: confirm subdomain, add the custom domain on Railway, hand DNS records to Soho, verify SSL, announce the new URL with a 30-day redirect." },
+      { ref: "#50", title: "Accuracy KPI Dashboard — two-stage scoring", st: "progress", d: "Two-stage measurement of the extraction → mapping pipeline: Stage 1 answer accuracy (LLM-judged closeness per eval question), Stage 2 mapping accuracy, with drill-downs. Makes output quality visible and trackable." },
+      { ref: "#12", title: "Vault File Auto-Labelling — Part 2", st: "progress", d: "Continues the auto-labelling work; gated on Supernal endpoints. Completes the path from upload to correctly classified, renamed vault document." },
+      { ref: "#43", title: "AI Intelligence — natural-language search (kickoff)", st: "progress", d: "'Talk to the book' — plain-English search across all customers and Heritage Book domains, returning matching customers with snippets and direct links. Build kicks off in June." },
+      { ref: "", title: "'Validate All' eval action", st: "blocked", d: "A single button to validate all eval answers at once, so users don't validate each question manually — speeds up populating the flow diagram. Currently blocked." },
+      { ref: "", title: "Audit logs, flow-diagram feedback & UX consistency", st: "progress", d: "User-level audit logging for compliance traceability, implementing flow-diagram feedback, and improving UX consistency across the sheets (especially edit mode), plus info-icon explanations for Heritage terminology." },
+      { ref: "", title: "Cross-sell additional AI Employees to Heritage", st: "progress", d: "Identify and position further Supernal AI Employees / products that fit Heritage's workflow." }
+    ]
+  },
+  {
+    key: "jul", month: "July 2026", status: "Upcoming", accent: "var(--c-amber)",
+    theme: "Make the AI pipeline production-grade",
+    milestone: "Milestone: AI Pipeline Production-Grade",
+    progress: 0, progressColor: "var(--placeholder)", meta: "Planned · milestone Jul 31",
+    why: "Take the pipeline from 'works' to 'production-grade'. Handle large documents reliably, manage and version documents properly, lock down security (OAuth-only), and add an automated regression safety net — so the platform holds up as usage and data volume grow.",
+    mileLine: "AI Pipeline Production-Grade — target Jul 31, 2026",
+    tasks: [
+      { ref: "#5", title: "Large Document Handling — retrieval & readability", st: "planned", d: "AI retrieval and readability improvements for large documents, with engineering support scoped in Notion. Forecasting engineering capacity and timeline, and queuing Heritage-side QA (William) for the build." },
+      { ref: "#23", title: "Document Management — inventory, labelling & storage", st: "planned", d: "Central document management across all client files: inventory list, labelling, and identifying what's missing. Origin: Jess Email #19, referenced in the 10/29/25 PRD." },
+      { ref: "#36", title: "Version Control — history, draft/published & domain control", st: "planned", d: "Save previous versions on modification, draft vs published states, and domain-level version control. Gives Heritage a full audit trail of book changes. Requires significant platform architecture work." },
+      { ref: "#37", title: "Granular user-level visibility controls", st: "planned", d: "Role-based, persistent controls to hide specific sections per user for controlled information sharing — some book sections contain sensitive data." },
+      { ref: "", title: "Security — move to OAuth, disable username/password", st: "blocked", d: "Migrate Heritage authentication fully to OAuth and disable username/password login to harden the security posture. Origin: Heritage security request (Apr 30)." },
+      { ref: "", title: "Automated Cypress testing", st: "planned", d: "An automated end-to-end test suite to catch regressions — directly responding to the PDF-print regression the team flagged and the call for better CI/CD." }
+    ]
+  },
+  {
+    key: "aug", month: "August 2026", status: "Upcoming", accent: "var(--c-olive)",
+    theme: "Multi-tenant, firm-facing foundation",
+    milestone: "Toward: Multi-Tenant Sublicense Foundation",
+    progress: 0, progressColor: "var(--placeholder)", meta: "Planned · foundation work",
+    why: "Lay the groundwork to open Heritage AI to other firms. The API layer, evaluation engine, and UX research that let outside firms use the platform without ever needing a Supernal account — plus the infra move to a US region ahead of a multi-tenant launch.",
+    mileLine: "Multi-Tenant Sublicense Foundation — target Nov 15, 2026",
+    tasks: [
+      { ref: "#20", title: "API Layer — endpoints, auth, rate limiting & docs", st: "planned", d: "The foundation enabling multi-tenant access so firms never need Supernal accounts: document upload/processing endpoints, evaluation results API, auth, rate limiting, error handling, and developer documentation." },
+      { ref: "#22", title: "UX Research & Design — personas, wireframes & usability", st: "planned", d: "Validate UX assumptions before building firm-facing features (an LOI requirement): interviews with 5–10 target firms, persona and journey mapping, wireframes, and usability testing." },
+      { ref: "#25", title: "Evaluation Engine — question-set builder & templates", st: "planned", d: "Customizable evaluation question sets and templates per firm, all running through the Supernal API. Depends on the API layer and multi-tenant foundation." },
+      { ref: "#26", title: "Evaluation Engine — runner, results queue & QA dashboard", st: "planned", d: "Background evaluation runner with a results queue, plus a QA review workflow and status dashboard so firms can run evals independently with quality control before results go live." },
+      { ref: "", title: "Infrastructure migration — EU West → US region", st: "planned", d: "Move Railway/Supabase infrastructure from EU West to a US region to cut latency for customers in the Americas, ahead of the multi-tenant launch. Billing is not a constraint." },
+      { ref: "", title: "Open eval endpoints for Heritage → Supernal", st: "planned", d: "Expose evaluation endpoints so the Heritage app can call the Supernal app directly, including API access to uploaded documents for running evals." }
+    ]
+  }
+];
+
+const FUTURE = [
+  { m: "Target Sep 30", t: "Book Domains, PDF Output & Presentation Mode", d: "Expanded book domains, polished PDF output, and a presentation mode for client-facing delivery." },
+  { m: "Target Nov 15", t: "Multi-Tenant Sublicense Foundation", d: "The platform foundations that let Heritage sub-license Heritage AI to other firms." },
+  { m: "Target Dec 31", t: "Firm-Facing Eval & Document Management", d: "Self-serve evaluation and document management surfaced directly to outside firms." }
+];
+
+const ST = {
+  done:     { cls: "done",     label: "Done" },
+  progress: { cls: "progress", label: "In progress" },
+  review:   { cls: "review",   label: "In review" },
+  planned:  { cls: "planned",  label: "Planned" },
+  blocked:  { cls: "blocked",  label: "Blocked" }
+};
+
+function chip(st) {
+  const s = ST[st] || ST.planned;
+  return `<span class="chip ${s.cls}"><span class="dot"></span>${s.label}</span>`;
+}
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ---------- Render milestone rail ---------- */
+const rail = document.getElementById("rail");
+rail.innerHTML = PHASES.map((p, i) => `
+  <div class="phase ${i===1?'active':''}" data-key="${p.key}">
+    <span class="accent" style="background:${p.accent}"></span>
+    <div class="pmonth">${p.month}</div>
+    <div class="ptheme">${p.theme}</div>
+    <div class="pmile">${p.milestone}</div>
+    <div class="bar"><span style="width:${p.progress}%;background:${p.progressColor}"></span></div>
+    <div class="pmeta">${p.meta}</div>
+  </div>
+`).join("");
+
+/* ---------- Render tabs ---------- */
+const tabs = document.getElementById("tabs");
+tabs.innerHTML = PHASES.map((p, i) => `
+  <button class="tab ${i===1?'active':''}" data-key="${p.key}">
+    ${p.month} · ${p.status}
+  </button>
+`).join("");
+
+/* ---------- Render panels ---------- */
+const panels = document.getElementById("panels");
+panels.innerHTML = PHASES.map((p, i) => `
+  <div class="panel ${i===1?'active':''}" data-key="${p.key}">
+    <div class="panel-head">
+      <h2>${p.theme}</h2>
+      ${chip(p.status === "Completed" ? "done" : p.status === "In progress" ? "progress" : "planned")}
+    </div>
+    <p class="panel-why">${p.why}</p>
+    <div class="panel-mile">🎯 <span><b>Milestone</b> — ${p.mileLine}</span></div>
+    <div class="tasks">
+      ${p.tasks.map(t => `
+        <details class="task">
+          <summary class="task-row">
+            <span class="task-title">${t.ref ? `<span class="ref">${t.ref}</span>` : ""}${esc(t.title)}</span>
+            ${chip(t.st)}
+            <span class="caret">▶</span>
+          </summary>
+          <div class="task-body">${esc(t.d)}</div>
+        </details>
+      `).join("")}
+    </div>
+  </div>
+`).join("");
+
+/* ---------- Render future ---------- */
+document.getElementById("future").innerHTML = FUTURE.map(f => `
+  <div class="future">
+    <div class="fm">${f.m}</div>
+    <div class="ft">${f.t}</div>
+    <div class="fd">${f.d}</div>
+  </div>
+`).join("");
+
+/* ---------- Interaction: switch month ---------- */
+function activate(key) {
+  document.querySelectorAll(".phase").forEach(el => el.classList.toggle("active", el.dataset.key === key));
+  document.querySelectorAll(".tab").forEach(el => el.classList.toggle("active", el.dataset.key === key));
+  document.querySelectorAll(".panel").forEach(el => el.classList.toggle("active", el.dataset.key === key));
+}
+document.querySelectorAll(".phase, .tab").forEach(el => {
+  el.addEventListener("click", () => activate(el.dataset.key));
+});
+</script>
+</body>
+</html>
