@@ -196,7 +196,7 @@
 /* ---------- Roadmap data ---------- */
 const PHASES = [
   {
-    key: "may", month: "May 2026", status: "In review", statusChip: "review",
+    key: "may", month: "May 2026", status: "In review", statusChip: "review", cap: 4,
     theme: "Fast, accurate daily workflow",
     why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, an auto-generated estate distribution chart, vault auto-labelling, and automated ingestion of the Heritage approach books. Most of this is live and now in active testing with the Heritage team.",
     callout: "<b>Heads-up on May.</b> The month is essentially shipped, but two items are still in review: the Estate Distribution Chart (#2) and the Heritage Books PDF pipeline (#49). Both are live and in active testing, not signed off until they're validated against real client books.",
@@ -208,7 +208,7 @@ const PHASES = [
     ]
   },
   {
-    key: "jun", month: "June 2026", status: "In progress", statusChip: "progress",
+    key: "jun", month: "June 2026", status: "In progress", statusChip: "progress", cap: 4,
     theme: "Harden the internal platform",
     why: "Turn the working MVP into a dependable platform: a real Python/FastAPI backend with role-based access and OAuth, a dedicated staging environment, the production domain, and an accuracy dashboard that proves output quality. This is the heaviest month of the ramp.",
     tasks: [
@@ -222,7 +222,7 @@ const PHASES = [
     ]
   },
   {
-    key: "jul", month: "July 2026", status: "Upcoming", statusChip: "planned",
+    key: "jul", month: "July 2026", status: "Upcoming", statusChip: "planned", cap: 12,
     theme: "Make the AI pipeline production-grade",
     why: "Take the platform from working to production-grade: reliable handling of large documents, proper document management and version control, and the user-level visibility Heritage needs for sensitive sections of a book.",
     tasks: [
@@ -233,7 +233,7 @@ const PHASES = [
     ]
   },
   {
-    key: "aug", month: "August 2026", status: "Upcoming", statusChip: "planned",
+    key: "aug", month: "August 2026", status: "Upcoming", statusChip: "planned", cap: 12,
     theme: "Multi-tenant, firm-facing foundation",
     why: "This is the phase where everything moves fully onto the Heritage App. The evaluation engine moves off the Supernal app and into Heritage's own platform, behind a dedicated API layer, so Heritage owns the full pipeline and outside firms can use it without ever needing a Supernal account. UX research validates the firm-facing experience alongside it.",
     tasks: [
@@ -286,7 +286,7 @@ panels.innerHTML = PHASES.map((p, i) => {
     <div class="panel-head">
       <h2>${p.theme}</h2>
       ${chip(p.statusChip)}
-      <span class="pts-total">${total} points</span>
+      <span class="pts-total">${total} out of ${p.cap} points</span>
     </div>
     <p class="panel-why">${p.why}</p>
     <div class="tasks">
