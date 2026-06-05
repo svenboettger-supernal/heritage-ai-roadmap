@@ -66,21 +66,7 @@
     position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
     background: linear-gradient(90deg, transparent, var(--border-strong) 22%, var(--border-strong) 78%, transparent);
   }
-  .brandbar {
-    display: flex; align-items: center; gap: 10px;
-    padding-top: 26px;
-  }
-  .mark {
-    width: 26px; height: 26px; border-radius: 7px;
-    background: var(--fg);
-    display: inline-flex; align-items: center; justify-content: center;
-    color: var(--bg); font-family: 'Lora', serif; font-weight: 600; font-size: 15px;
-  }
-  .brandbar .name { font-weight: 600; font-size: 14px; letter-spacing: 0.01em; }
-  .brandbar .sep { color: var(--placeholder); }
-  .brandbar .ctx { color: var(--muted-fg); font-size: 14px; }
-
-  .hero { padding: 30px 0 38px; }
+  .hero { padding: 52px 0 38px; }
   .eyebrow {
     font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--muted-fg); margin-bottom: 14px;
@@ -108,7 +94,7 @@
   .chip.blocked .dot { background: hsl(6 63% 46%); }
 
   /* ---------- Month detail ---------- */
-  .months { padding-top: 46px; }
+  .months { padding-top: 46px; padding-bottom: 80px; }
   .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
   .tab {
     font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
@@ -123,7 +109,7 @@
   .panel.active { display: block; }
   @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-  .panel-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
+  .panel-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 4px; }
   .panel-why {
     color: var(--muted-fg); max-width: 720px; margin: 12px 0 4px; font-size: 16px;
   }
@@ -154,13 +140,6 @@
   }
   .callout b { color: hsl(26 91% 37%); }
 
-  /* ---------- Footer / legend ---------- */
-  .legend { display: flex; gap: 16px; flex-wrap: wrap; padding: 34px 0; margin-top: 48px; position: relative; }
-  .legend::before {
-    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-strong) 22%, var(--border-strong) 78%, transparent);
-  }
-  footer { color: var(--placeholder); font-size: 12.5px; padding: 0 0 56px; }
   .section-label {
     font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--muted-fg); margin-bottom: 16px;
@@ -178,10 +157,6 @@
 
 <header>
   <div class="wrap">
-    <div class="brandbar">
-      <span class="mark">H</span>
-      <span class="name">Heritage&nbsp;AI</span>
-    </div>
     <div class="hero">
       <div class="eyebrow">May – August 2026</div>
       <h1>Heritage Product Roadmap</h1>
@@ -203,20 +178,6 @@
     <div class="tabs" id="tabs"></div>
     <div id="panels"></div>
   </section>
-
-  <!-- Legend -->
-  <div class="legend">
-    <span class="chip done"><span class="dot"></span>Done</span>
-    <span class="chip progress"><span class="dot"></span>In&nbsp;progress</span>
-    <span class="chip review"><span class="dot"></span>In&nbsp;review</span>
-    <span class="chip planned"><span class="dot"></span>Planned</span>
-    <span class="chip blocked"><span class="dot"></span>Blocked</span>
-  </div>
-
-  <footer>
-    Heritage AI · prepared by Supernal. Status reflects the live project plan as of June 2026.
-    Figures and sequencing are working estimates and may shift as work lands.
-  </footer>
 
 </main>
 
