@@ -126,6 +126,7 @@
   .task-row::-webkit-details-marker { display: none; }
   .task-title { flex: 1; font-size: 15px; font-weight: 500; }
   .task-title .ref { color: var(--placeholder); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; margin-right: 7px; }
+  .from { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--muted-fg); background: transparent; border: 1px dashed var(--border-strong); border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
   .metacell { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
   .pts { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--placeholder); white-space: nowrap; }
   .tag { display: inline-flex; align-items: center; justify-content: center; border-radius: 99px; padding: 4px; white-space: nowrap; }
@@ -200,8 +201,8 @@ const PHASES = [
     why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, an auto-generated estate distribution chart, vault auto-labelling, and automated ingestion of the Heritage approach books. Most of this is live and now in active testing with the Heritage team.",
     callout: "<b>Heads-up on May.</b> The month is essentially shipped, but two items are still in review: the Estate Distribution Chart (#2) and the Heritage Books PDF pipeline (#49). Both are live and in active testing, not signed off until they're validated against real client books.",
     tasks: [
-      { ref: "#1", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", pts: 2, d: "Rebuilt flow-diagram creation: a template that color-codes text straight from the eval data using Heritage's rules, plus record duplication. Reviewed with Keith, Tom Jr., Willy and Chris on Jun 4 on an 80/20 basis: ship a functional baseline, then iterate on the open items (arrow connections, date formatting, insurance-box labelling)." },
-      { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", pts: 1, d: "Auto-generates the estate distribution chart from the asset, insurance and data sheets, replacing Heritage's manual Excel process. Live and in testing: a qualified-plans tax bug was fixed Jun 3, and Keith is verifying allocations (including dollar-amount GST splits) against real client books before sign-off." },
+      { ref: "#1", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", pts: 2, from: "Apr", d: "Rebuilt flow-diagram creation: a template that color-codes text straight from the eval data using Heritage's rules, plus record duplication. Reviewed with Keith, Tom Jr., Willy and Chris on Jun 4 on an 80/20 basis: ship a functional baseline, then iterate on the open items (arrow connections, date formatting, insurance-box labelling)." },
+      { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", pts: 1, from: "Apr", d: "Auto-generates the estate distribution chart from the asset, insurance and data sheets, replacing Heritage's manual Excel process. Live and in testing: a qualified-plans tax bug was fixed Jun 3, and Keith is verifying allocations (including dollar-amount GST splits) against real client books before sign-off." },
       { ref: "#12", title: "Vault File Auto-Labelling: Part 1", st: "done", pts: 2, d: "Upload interface that routes client files into the Supernal Vault, where AI classifies each document by domain and auto-renames it on a consistent pattern (carrier, product, policy number, type, date). Part 1 shipped; Part 2 continues in June." },
       { ref: "#49", title: "Automated Heritage Books PDF ingestion pipeline", st: "review", pts: 2, d: "Drag Heritage approach books (PDFs) into the platform and the AI extraction pipeline auto-populates the data in about 30 minutes, replacing manual re-entry. Live at roughly 80% accuracy with final fixes delivered Jun 1; still admin-only and needs manual review before we call it signed off." }
     ]
@@ -293,6 +294,7 @@ panels.innerHTML = PHASES.map((p, i) => {
         <details class="task">
           <summary class="task-row">
             <span class="task-title">${t.ref ? `<span class="ref">${t.ref}</span>` : ""}${esc(t.title)}</span>
+            ${t.from ? `<span class="from" title="Carried over from ${t.from}">carried from ${t.from}</span>` : ""}
             <span class="metacell">${metaCell(t)}</span>
             ${chip(t.st)}
             <span class="caret">▶</span>
