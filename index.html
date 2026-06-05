@@ -183,8 +183,8 @@
       <span class="name">Heritage&nbsp;AI</span>
     </div>
     <div class="hero">
-      <div class="eyebrow">Heritage Product Roadmap · May – August 2026</div>
-      <h1>What we're building, and why.</h1>
+      <div class="eyebrow">May – August 2026</div>
+      <h1>Heritage Product Roadmap</h1>
       <p class="lede">
         Heritage is ramping up to 12 points a month soon. To stay ahead of that pace, we've
         sequenced the next four months into one clear plan: May is wrapping up with a few items
@@ -227,7 +227,7 @@ const PHASES = [
     key: "may", month: "May 2026", status: "In review", statusChip: "review",
     theme: "Fast, accurate daily workflow",
     why: "Make the team's everyday workflow fast and accurate: a rebuilt flow diagram, cleaner vault labelling, and a real staging pipeline so we can ship safely.",
-    callout: "<b>Heads-up on May.</b> The May cycle is essentially complete, but a few items are still in review and not yet signed off: the Estate Distribution Chart (#2), the automated Heritage Books PDF ingestion pipeline (#49), and the insurance-illustration accuracy fix. They only earn a checkmark once validated against live books.",
+    callout: "<b>Heads-up on May.</b> Nearly complete, but three items are still in review: the Estate Distribution Chart (#2), the Heritage Books PDF pipeline (#49), and the insurance-illustration accuracy fix.",
     tasks: [
       { ref: "", title: "Flow Diagram Automation: template-based, eval-driven color coding", st: "done", d: "Completely new flow-diagram creation: a template that color-codes text from the eval data using Heritage's rules, plus record duplication. Origin: Jessica's priority list + Chris's eval-to-book alignment feedback." },
       { ref: "#2", title: "Estate Distribution Chart: auto-creation from book data", st: "review", d: "Auto-creates the Estate Distribution Chart from the book data, replacing Heritage's manual Excel process. Origin: Jess Email #03. Currently in review, pending sign-off." },
@@ -249,7 +249,7 @@ const PHASES = [
       { ref: "#50", title: "Accuracy KPI Dashboard: two-stage scoring", st: "progress", d: "Two-stage measurement of the extraction → mapping pipeline: Stage 1 answer accuracy (LLM-judged closeness per eval question), Stage 2 mapping accuracy, with drill-downs. Makes output quality visible and trackable." },
       { ref: "#12", title: "Vault File Auto-Labelling: Part 2", st: "progress", d: "Continues the auto-labelling work; gated on Supernal endpoints. Completes the path from upload to correctly classified, renamed vault document." },
       { ref: "#43", title: "AI Intelligence: natural-language search (kickoff)", st: "progress", d: "'Talk to the book': plain-English search across all customers and Heritage Book domains, returning matching customers with snippets and direct links. Build kicks off in June." },
-      { ref: "", title: "'Validate All' eval action", st: "blocked", d: "A single button to validate all eval answers at once, so users don't validate each question manually: speeds up populating the flow diagram. Currently blocked." },
+      { ref: "", title: "'Validate All' eval action", st: "done", d: "A single button to validate all eval answers at once, so users don't validate each question manually: speeds up populating the flow diagram. Shipped." },
       { ref: "", title: "Audit logs, flow-diagram feedback & UX consistency", st: "progress", d: "User-level audit logging for compliance traceability, implementing flow-diagram feedback, and improving UX consistency across the sheets (especially edit mode), plus info-icon explanations for Heritage terminology." },
       { ref: "", title: "Cross-sell additional AI Employees to Heritage", st: "progress", d: "Identify and position further Supernal AI Employees / products that fit Heritage's workflow." }
     ]
