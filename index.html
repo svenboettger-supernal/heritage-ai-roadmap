@@ -126,7 +126,7 @@
   .task-row::-webkit-details-marker { display: none; }
   .task-title { flex: 1; font-size: 15px; font-weight: 500; }
   .task-title .ref { color: var(--placeholder); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; margin-right: 7px; }
-  .from { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--muted-fg); background: transparent; border: 1px dashed var(--border-strong); border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
+  .from { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: hsl(33 12% 68%); background: transparent; border: 1px dashed var(--border); border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
   .metacell { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
   .pts { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--placeholder); white-space: nowrap; }
   .pts-zero { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: hsl(33 12% 68%); white-space: nowrap; }
@@ -276,7 +276,7 @@ const ICON_GIFT = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" s
 const ICON_BRIEFCASE = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
 
 function metaCell(t) {
-  const pts = `<span class="pts">${t.pts} pt${t.pts===1?'':'s'}</span>`;
+  const pts = `<span class="${t.from ? 'pts-zero' : 'pts'}">${t.pts} pt${t.pts===1?'':'s'}</span>`;
   if (t.kind === "maintenance") return `<span class="pts-zero">0 pts</span><span class="tag tag-maint" title="Maintenance" aria-label="Maintenance">${ICON_WRENCH}</span>`;
   if (t.kind === "gift")        return `<span class="pts-zero">${t.pts} pt${t.pts===1?'':'s'}</span><span class="tag tag-gift" title="Gift" aria-label="Gift">${ICON_GIFT}</span>`;
   return `${pts}<span class="tag tag-project" title="Project" aria-label="Project">${ICON_BRIEFCASE}</span>`;
