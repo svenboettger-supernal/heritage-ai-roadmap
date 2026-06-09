@@ -277,8 +277,8 @@ const ICON_BRIEFCASE = `<svg viewBox="0 0 24 24" width="13" height="13" fill="no
 
 function metaCell(t) {
   const pts = `<span class="pts">${t.pts} pt${t.pts===1?'':'s'}</span>`;
-  if (t.kind === "maintenance") return `<span class="pts-zero">0 points</span><span class="tag tag-maint" title="Maintenance" aria-label="Maintenance">${ICON_WRENCH}</span>`;
-  if (t.kind === "gift")        return `${pts}<span class="tag tag-gift" title="Gift" aria-label="Gift">${ICON_GIFT}</span>`;
+  if (t.kind === "maintenance") return `<span class="pts-zero">0 pts</span><span class="tag tag-maint" title="Maintenance" aria-label="Maintenance">${ICON_WRENCH}</span>`;
+  if (t.kind === "gift")        return `<span class="pts-zero">${t.pts} pt${t.pts===1?'':'s'}</span><span class="tag tag-gift" title="Gift" aria-label="Gift">${ICON_GIFT}</span>`;
   return `${pts}<span class="tag tag-project" title="Project" aria-label="Project">${ICON_BRIEFCASE}</span>`;
 }
 
