@@ -77,9 +77,9 @@
 
   /* ---------- Status chips ---------- */
   .chip {
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     border-radius: 99px; padding: 2px 9px; font-size: 12px; font-weight: 500;
-    border: 1px solid transparent; white-space: nowrap;
+    border: 1px solid transparent; white-space: nowrap; min-width: 96px;
   }
   .chip .dot { width: 6px; height: 6px; border-radius: 99px; }
   .chip.done    { background: var(--success-bg); color: var(--success-fg); border-color: var(--success-bd); }
@@ -132,6 +132,7 @@
   .tag { display: inline-flex; align-items: center; justify-content: center; border-radius: 99px; padding: 4px; white-space: nowrap; }
   .tag svg { display: block; }
   .tag-maint { color: var(--muted-fg); background: var(--muted-bg); border: 1px solid var(--border); }
+  .tag-project { color: var(--muted-fg); background: var(--muted-bg); border: 1px solid var(--border); }
   .tag-gift { color: hsl(9 41% 38%); background: hsl(9 30% 93%); border: 1px solid hsl(9 30% 84%); }
   .pts-total {
     font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--muted-fg);
@@ -271,12 +272,13 @@ tabs.innerHTML = PHASES.map((p, i) => `
 const panels = document.getElementById("panels");
 const ICON_WRENCH = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`;
 const ICON_GIFT = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C13 3 12 8 12 8"/></svg>`;
+const ICON_BRIEFCASE = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
 
 function metaCell(t) {
   const pts = `<span class="pts">${t.pts} pt${t.pts===1?'':'s'}</span>`;
   if (t.kind === "maintenance") return `<span class="tag tag-maint" title="Maintenance" aria-label="Maintenance">${ICON_WRENCH}</span>`;
   if (t.kind === "gift")        return `${pts}<span class="tag tag-gift" title="Gift" aria-label="Gift">${ICON_GIFT}</span>`;
-  return pts;
+  return `${pts}<span class="tag tag-project" title="Project" aria-label="Project">${ICON_BRIEFCASE}</span>`;
 }
 
 panels.innerHTML = PHASES.map((p, i) => {
