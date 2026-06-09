@@ -283,7 +283,7 @@ function metaCell(t) {
 }
 
 panels.innerHTML = PHASES.map((p, i) => {
-  const total = p.tasks.reduce((a, t) => a + (t.kind === "maintenance" ? 0 : (t.pts || 0)), 0);
+  const total = p.tasks.reduce((a, t) => a + (t.kind || t.from ? 0 : (t.pts || 0)), 0);
   return `
   <div class="panel ${i===1?'active':''}" data-key="${p.key}">
     <div class="panel-head">
