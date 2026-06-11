@@ -174,10 +174,11 @@
       <div class="eyebrow">May – August 2026</div>
       <h1>Heritage Product Roadmap</h1>
       <p class="lede">
-        Heritage is ramping up to 12 points a month soon. To stay ahead of that pace, we've
-        sequenced the next four months into one clear plan: May is wrapping up with a few items
-        still in review, June is underway, and July and August are scoped and ready. This is the
-        plan we think is best.
+        Heritage is moving to the full 12-point pace in June. We've sequenced the next four
+        months into one clear plan: May is wrapping up with a few items still in review, June
+        is accelerated with large document handling and document management pulled forward,
+        July adds version control and the API layer, and the evaluation engine ships inside
+        the Heritage app in early August. This is the plan we think is best.
       </p>
     </div>
   </div>
@@ -212,12 +213,14 @@ const PHASES = [
   {
     key: "jun", month: "June 2026", status: "In progress", statusChip: "progress", cap: 12,
     theme: "Harden the internal platform",
-    why: "Turn the working MVP into a dependable platform: a real Python/FastAPI backend with role-based access and OAuth, a dedicated staging environment, the production domain, and an accuracy dashboard that proves output quality. This is the heaviest month of the ramp.",
+    why: "June runs at the full 12-point pace. Turn the working MVP into a dependable platform: a real Python/FastAPI backend with role-based access and OAuth, a dedicated staging environment, the production domain, and an accuracy dashboard that proves output quality. Large document handling and document management are pulled forward from July to fill the accelerated month.",
     tasks: [
       { ref: "", title: "Backend foundation: RBAC, endpoints & OAuth", st: "progress", pts: 4, kind: "gift", d: "A full Python/FastAPI backend replacing today's direct database access, where any user can currently bypass role checks from the browser. Adds role-based access control across 150+ endpoints plus Google/Microsoft OAuth. Deep owns it; the single largest effort this month." },
       { ref: "", title: "Heritage staging environment & delivery workflow", st: "done", pts: 2, kind: "maintenance", d: "A dedicated Heritage staging environment on Railway, separate from production and clearly banner-marked, so changes are tested safely before release. Live, with the team now on a staging-branch workflow." },
       { ref: "", title: "Domain migration → heritagevault.ai", st: "done", pts: 1, kind: "maintenance", d: "Moved the app from heritage.getsupernal.ai to heritagevault.ai with Heritage's IT partner, Soho. Cutover is complete and the app runs on the new domain." },
-      { ref: "#39", title: "Admin: Usage analytics & reporting dashboard", st: "progress", pts: 2, d: "An admin dashboard with usage analytics and reporting, giving Heritage visibility into how the platform is being used across users and clients." },
+      { ref: "#39", title: "Admin: Usage analytics, reporting & accuracy dashboard", st: "done", pts: 2, d: "An admin dashboard with two sections: user analytics (active users, logins, tab usage, feature views, PDF downloads) and eval accuracy metrics with two-stage scoring, so Heritage can see and prove output quality over time. Merged with the accuracy dashboard (#50) requested by Tom Sr. Live; stage 2 (platform-mapping accuracy) follows once Version Control (#36) ships in July." },
+      { ref: "#5", title: "Large Document Handling: retrieval & readability", st: "progress", pts: 4, d: "AI retrieval and readability improvements so large documents process reliably end to end. Sized against real Heritage clients: roughly 100 documents and 150 assets is an average book, with upper bounds around 50+ investment accounts and up to 100 business entities, stored as individual statements and K-1s or consolidated sheets. Pulled forward from July; targeted for end of June." },
+      { ref: "#23", title: "Document Management: inventory, labelling & storage", st: "planned", pts: 2, d: "Central document management across all client files: an inventory with folders and tagging, and a clear view of what's missing. The gate for the downstream document work, so it moves up from July." },
       { ref: "#12", title: "Vault File Auto-Labelling: Part 2", st: "progress", pts: 2, d: "Completes auto-labelling by wiring the upload flow into the Supernal AI endpoints, so files are classified and renamed end to end. Targeted for Jun 15." },
       { ref: "#43", title: "AI Intelligence: natural-language search", st: "progress", pts: 2, d: "'Talk to the book': plain-English search across every client and Heritage Book domain, returning matching customers with snippets and direct links. Jens owns it, targeted for Jun 15." },
       { ref: "", title: "'Validate All' eval action", st: "done", pts: 1, kind: "maintenance", d: "A single action to validate every eval answer at once instead of one by one, speeding up how fast a flow diagram gets populated. Shipped." }
@@ -226,21 +229,20 @@ const PHASES = [
   {
     key: "jul", month: "July 2026", status: "Upcoming", statusChip: "planned", cap: 12,
     theme: "Make the AI pipeline production-grade",
-    why: "Take the platform from working to production-grade: reliable handling of large documents, proper document management and version control, and the user-level visibility Heritage needs for sensitive sections of a book.",
+    why: "Make the platform ready for clients: version control so books sit in draft before anything is published to a client, the user-level visibility Heritage needs for sensitive sections, and the API layer pulled forward from August so the evaluation engine can ship inside the Heritage app in early August.",
     tasks: [
-      { ref: "#5", title: "Large Document Handling: retrieval & readability", st: "planned", pts: 4, d: "AI retrieval and readability improvements so large documents process reliably end to end. A major engineering item; timing is still being confirmed with Heritage between June and July." },
-      { ref: "#23", title: "Document Management: inventory, labelling & storage", st: "planned", pts: 2, d: "Central document management across all client files: an inventory with folders and tagging, and a clear view of what's missing. Part of the dedicated Heritage-app phase." },
-      { ref: "#36", title: "Version Control: history, draft/published & domain control", st: "planned", pts: 4, d: "Version history with draft and published states and domain-level control, giving Heritage a full audit trail of book changes. Also the prerequisite for Stage 2 of the accuracy dashboard." },
-      { ref: "#37", title: "Granular user-level visibility controls", st: "planned", pts: 2, d: "Role-based, persistent controls to hide specific sections per user, so the sensitive parts of a book are only seen by the right people." }
+      { ref: "#36", title: "Version Control: history, draft/published & domain control", st: "planned", pts: 4, d: "Version history with draft and published states and domain-level control, giving Heritage a full audit trail of book changes. Needed before clients are on the platform, so edits stay in draft until published. Also the prerequisite for Stage 2 of the accuracy dashboard." },
+      { ref: "#37", title: "Granular user-level visibility controls", st: "planned", pts: 2, d: "Role-based, persistent controls to hide specific sections per user, so the sensitive parts of a book are only seen by the right people." },
+      { ref: "#20", title: "API Layer: endpoints, auth, rate limiting & docs", st: "planned", pts: 4, d: "The foundation for multi-tenant access, so firms never need a Supernal account: document upload and processing endpoints, an evaluation results API, auth and rate limiting. Pulled forward from August; the gate for the evaluation engine moving into the Heritage app." },
+      { ref: "#22", title: "Heritage UI/UX Redesign: Part 1", st: "planned", pts: 2, d: "First half of the firm-facing redesign (an LOI requirement): interviews with target firms, personas and journey mapping. Runs alongside the API layer so design and engineering land together in August." }
     ]
   },
   {
     key: "aug", month: "August 2026", status: "Upcoming", statusChip: "planned", cap: 12,
     theme: "Multi-tenant, firm-facing foundation",
-    why: "This is the phase where everything moves fully onto the Heritage App. The evaluation engine moves off the Supernal app and into Heritage's own platform, behind a dedicated API layer, so Heritage owns the full pipeline and outside firms can use it without ever needing a Supernal account. UX research validates the firm-facing experience alongside it.",
+    why: "This is the phase where everything moves fully onto the Heritage App. The evaluation engine moves off the Supernal app and into Heritage's own platform in early August, running through the API layer delivered in July, so Heritage owns the full pipeline and outside firms can use it without ever needing a Supernal account. The UI/UX redesign concludes alongside it, and the month keeps open capacity for whatever Heritage prioritizes next.",
     tasks: [
-      { ref: "#20", title: "API Layer: endpoints, auth, rate limiting & docs", st: "planned", pts: 4, d: "The foundation for multi-tenant access, so firms never need a Supernal account: document upload and processing endpoints, an evaluation results API, auth and rate limiting. A major gate that depends on the eval endpoints coming from Supernal." },
-      { ref: "#22", title: "UX Research & Design: personas, wireframes & usability", st: "planned", pts: 4, d: "Validate the firm-facing experience before building it (an LOI requirement): interviews with target firms, personas and journey mapping, wireframes, and usability testing." },
+      { ref: "#22", title: "Heritage UI/UX Redesign: Part 2", st: "planned", pts: 2, d: "Second half of the firm-facing redesign: wireframes and usability testing, validating the experience before outside firms come onto the platform." },
       { ref: "#25", title: "Evaluation Engine: question-set builder & templates", st: "planned", pts: 2, d: "Customizable evaluation question sets and templates per firm, all running through the Supernal API. Builds on the API layer." },
       { ref: "#26", title: "Evaluation Engine: runner, results queue & QA dashboard", st: "planned", pts: 4, d: "A background evaluation runner with a results queue, plus a QA review workflow and status dashboard, so firms can run evals independently with quality control before results go live." }
     ]
